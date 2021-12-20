@@ -3,9 +3,6 @@
         <div class="row">
             <div class="col-md-3">
                 <a href="#">
-                    @php
-                        $foto = $publicacion->fotos[0]->foto;
-                    @endphp
                     <img class="img-list p-2"
                         src="{{ isset($publicacion->fotos) && count($publicacion->fotos) > 0 ? asset('storage/' . $publicacion->fotos[0]->foto) : asset('assets/img/sin-imagen.jpg') }}">
                 </a>
