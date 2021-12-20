@@ -13,14 +13,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('inicio');
+
+Route::namespace('Publicacion')->middleware(['auth'])->group(function () {
+    Route::resource('/publicaciones', 'PublicacionController', ['only' => ['index', 'create', 'edit', 'store', 'update', 'destroy']]);
+    Route::post('subirFotos', 'PublicacionController@subirFotos')->name('subirFotos');
+    Route::post('eliminarFoto/{anuncio?}', 'PublicacionController@eliminarFoto')->name('eliminarFoto');
+    
 });
 
-Auth::routes();
+Route::namespace('Compra')->middleware(['auth'])->group(function () {
+    Route::get('compras/create/{publicacion_id}', [
+        'as' => 'compras.create',
+        'uses' => 'CompraController@create'
+    ]);
+    
+    Route::get('/getComunas/{region?}', 'CompraController@getComunas')->name('getComunas');
+    
+    // Route::resource('/compras', 'CompraController', ['only' => ['index', 'edit', 'store', 'update', 'destroy'], ['except' => 'create']]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('compras', 'CompraController', ['except' => 'create']);
+});
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

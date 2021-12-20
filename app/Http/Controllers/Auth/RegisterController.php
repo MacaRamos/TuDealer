@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Usuario;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use DateTime;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -50,9 +51,15 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nombre_usuario' => ['required', 'string', 'max:255'],
+            'nombre' => ['required', 'string', 'max:255'],
+            'RUT' => ['required', 'string', 'max:12', 'unique:usuarios'],
+            'apellido_paterno' => ['required', 'string', 'max:255'],
+            'apellido_materno' => ['required', 'string', 'max:255'],
+            'fecha_nacimiento' => ['required', 'date'],
+            'celular' => ['required', 'string', 'max:15'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios'],
+            'password' =>  ['required', 'confirmed', 'min:8']
         ]);
     }
 
@@ -64,10 +71,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        return Usuario::create([
+            'nombre_usuario' => $data['nombre_usuario'],
+            'nombre' => $data['nombre'],
+            'RUT' => $data['RUT'],
+            'apellido_paterno' => $data['apellido_paterno'],
+            'apellido_materno' => $data['apellido_materno'],
+            'fecha_nacimiento' => new DateTime($data['fecha_nacimiento']),
+            'celular' => $data['celular'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'fecha_creacion' => date('Y-m-d H:i:s')
         ]);
     }
 }

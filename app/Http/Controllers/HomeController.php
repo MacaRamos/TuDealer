@@ -2,27 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Publicacion\Publicacion;
+use App\Models\Publicacion\TipoSemilla;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $tipos = TipoSemilla::get();
+
+        $publicaciones = Publicacion::where('activa', true)->where(function ($query) use ($request) {
+            if($request->busqueda){
+                $query->where('titulo', 'like', "%$request->busqueda%");
+            }
+            if(isset($request->tipos)){
+                $query->whereIn('tipo_semilla_id', (array)$request->tipos);
+            }
+        })->get();
+
+        
+        if($request->ajax()){
+            return view('publicaciones', compact('publicaciones'));
+        }else{
+            return view('inicio', compact('publicaciones', 'tipos'));
+        }
     }
 }
