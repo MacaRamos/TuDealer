@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Parametro;
 use App\Models\Publicacion\PublicacionFoto;
+use App\Models\Publicacion\PublicacionResena;
 use DateTime;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,7 +23,7 @@ class PublicacionController extends Controller
      */
     public function index()
     {
-        $publicaciones = Publicacion::where('usuario_id', Auth::user()->usuario_id)->where('activa', true)->get();
+        $publicaciones = Publicacion::where('usuario_id', Auth::user()->usuario_id)->where('activa', true)->paginate(10);
         return view('publicaciones.index', compact('publicaciones'));
     }
 
@@ -97,7 +98,10 @@ class PublicacionController extends Controller
      */
     public function show($id)
     {
-        //
+        $publicacion = Publicacion::where('publicacion_id', $id)
+        ->with(['fotos', 'tipo', 'resenas', 'resenas.compra', 'resenas.compra.comprador'])
+        ->first();
+        return view('publicaciones.show', compact('publicacion'));
     }
 
     /**

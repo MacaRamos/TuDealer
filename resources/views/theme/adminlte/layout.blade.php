@@ -48,10 +48,8 @@
             <div class="content-header">
                 <div class="container">
                     <div class="row mb-2">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <h1 class="title-page">@yield('tituloContenido')</h1>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container -->

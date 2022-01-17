@@ -150,7 +150,7 @@
                                 <div class="col-md-6">
                                     <input id="apellido_materno" type="text"
                                         class="form-control @error('apellido_materno') is-invalid @enderror"
-                                        name="apellido_materno" value="{{ old('apellido_paterno') }}" required
+                                        name="apellido_materno" value="{{ old('apellido_materno') }}" required
                                         autocomplete="name" autofocus>
 
                                     @error('apellido_materno')

@@ -1,9 +1,9 @@
 @extends("theme.$theme.layout")
 @section('titulo')
-    Tus Publicaciones
+    Mis Publicaciones
 @endsection
 @section('tituloContenido')
-    Tus Publicaciones
+    Mis Publicaciones
 @endsection
 
 @section('header')
@@ -20,35 +20,8 @@
     @include('includes.error-form')
     <script>
         $(function() {
-            $("#tabla-data").DataTable({
-                language: {
-                    "decimal": "",
-                    "emptyTable": "No hay información",
-                    "info": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-                    "infoEmpty": "Mostrando 0 a 0 de 0 registros",
-                    "infoFiltered": "(Filtrado de _MAX_ total registros)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "Mostrar _MENU_ registros",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "search": "Buscar:",
-                    "zeroRecords": "Sin resultados encontrados",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Ultimo",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    }
-                },
-                pageLength: 20,
-                lengthMenu: [
-                    [20, 50, 100, -1],
-                    [20, 50, 100, "Todos"]
-                ]
-            });
 
-            $("#tabla-data").on('submit', '.form-eliminar', function() {
+            $(".form-eliminar").on('submit', function() {
                 event.preventDefault();
                 const form = $(this);
                 swal({
@@ -106,18 +79,16 @@
 @endsection
 
 @section('contenido')
-    <div class="card">
-        <div class="container">
-            <div class="card-header with-border border-consex">
-                <div class="card-tools pull-right">
-                    <a href="{{ route('publicaciones.create') }}" class="btn btn-block btn-sm">
-                        <i class="fas fa-plus-circle"></i> Nueva
-                    </a>
-                </div>
+    <div class="container">
+        <div class="card-header with-border border-consex">
+            <div class="card-tools pull-right">
+                <a href="{{ route('publicaciones.create') }}" class="btn btn-block btn-sm">
+                    <i class="fas fa-plus-circle"></i> Nueva
+                </a>
             </div>
-            <div class="card-body">
-                @include('publicaciones.table')
-            </div>
+        </div>
+        <div class="card-body">
+            @include('publicaciones.lista')
         </div>
     </div>
 @endsection

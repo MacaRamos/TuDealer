@@ -19,8 +19,8 @@ class CreatePublicacionesResernasTable extends Migration
             $table->foreign('publicacion_id')->references('publicacion_id')->on('publicaciones');
             $table->bigInteger('compra_id')->unsigned();
             $table->foreign('compra_id')->references('compra_id')->on('compras');
-            $table->integer('puntaje');
-            $table->text('resena');//caracteres MAX
+            $table->integer('puntaje')->default(0);
+            $table->text('resena')->nullable();//caracteres MAX
         });
     }
 

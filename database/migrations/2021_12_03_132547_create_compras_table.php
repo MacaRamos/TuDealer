@@ -15,11 +15,26 @@ class CreateComprasTable extends Migration
     {
         Schema::create('compras', function (Blueprint $table) {
             $table->id('compra_id');
+            $table->bigInteger('publicacion_id')->unsigned();
+            $table->foreign('publicacion_id')->references('publicacion_id')->on('publicaciones');
             $table->bigInteger('usuario_id')->unsigned();
             $table->foreign('usuario_id')->references('usuario_id')->on('usuarios');
-            $table->bigInteger('direccion_id')->unsigned();
-            $table->foreign('direccion_id')->references('direccion_id')->on('usuarios_direcciones');
+            $table->bigInteger('estado_compra_id')->unsigned();
+            $table->foreign('estado_compra_id')->references('estado_compra_id')->on('estados_compra');
+            $table->string('nombre_recibe');
+            $table->string('RUT_recibe', 12);
+            $table->string('celular_recibe');
+            $table->string('email_recibe');
+            $table->bigInteger('region_id')->unsigned();
+            $table->foreign('region_id')->references('region_id')->on('regiones');
+            $table->bigInteger('comuna_id')->unsigned();
+            $table->foreign('comuna_id')->references('comuna_id')->on('comunas');
+            $table->string('calle');
+            $table->integer('numero_direccion');
+            $table->integer('numero_departamento')->nullable();
+            $table->string('medio_pago');
             $table->datetime('fecha_compra');
+            $table->integer('unidades');
             $table->integer('precio_total');
         });
     }

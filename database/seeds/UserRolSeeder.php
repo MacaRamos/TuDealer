@@ -13,7 +13,7 @@ class UserRolSeeder extends Seeder
     public function run()
     {
         $usersRol = [
-            [1,1, true]
+            [1,1, true]//Maca
         ];
         
         $usersRol = array_map(function($userRol) {

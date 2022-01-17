@@ -32,6 +32,10 @@
                     <a href="{{ route('publicaciones.index') }}"
                         class="nav-link {{ Request::is('publicaciones') ? 'active' : '' }}">Mis publicaciones </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('ventas.index') }}"
+                        class="nav-link {{ Request::is('ventas') ? 'active' : '' }}">Mis Ventas </a>
+                </li>
                 <li class="nav-item dropdown">
                     <a id="perfil" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle">{{ Auth::user()->nombre }}</a>

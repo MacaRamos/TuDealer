@@ -1,5 +1,5 @@
 {{-- {{dd(session()->all())}} --}}
-{{-- <script>
+<script>
   var mensaje = @json(session()->get('mensaje') ?? $notificacion['mensaje'] ?? '');
   var tipo = @json(session()->get('tipo') ?? $notificacion['tipo'] ?? '');
   var titulo = @json(session()->get('titulo') ?? $notificacion['titulo'] ?? '');
@@ -23,4 +23,4 @@
   }
   
   
-</script> --}}
+</script>

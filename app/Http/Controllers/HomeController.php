@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Publicacion\Publicacion;
 use App\Models\Publicacion\TipoSemilla;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -17,7 +18,7 @@ class HomeController extends Controller
     {
         $tipos = TipoSemilla::get();
 
-        $publicaciones = Publicacion::where('activa', true)->where(function ($query) use ($request) {
+        $publicaciones = Publicacion::where('usuario_id', '!=', Auth::user()->usuario_id ?? '')->where('activa', true)->where(function ($query) use ($request) {
             if($request->busqueda){
                 $query->where('titulo', 'like', "%$request->busqueda%");
             }
@@ -28,7 +29,7 @@ class HomeController extends Controller
 
         
         if($request->ajax()){
-            return view('publicaciones', compact('publicaciones'));
+            return view('publicaciones', compact('publicaciones', 'tipos'));
         }else{
             return view('inicio', compact('publicaciones', 'tipos'));
         }
