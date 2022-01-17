@@ -27,9 +27,8 @@ class HomeController extends Controller
             }
         })->get();
 
-        
         if($request->ajax()){
-            return view('publicaciones', compact('publicaciones', 'tipos'));
+            return view('publicaciones', compact('publicaciones'));
         }else{
             return view('inicio', compact('publicaciones', 'tipos'));
         }

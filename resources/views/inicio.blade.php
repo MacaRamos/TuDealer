@@ -67,8 +67,40 @@
     <div class="card">
         <section class="py-5">
             <div class="container">
-                <div id="publicaciones">
-                    @include('publicaciones')
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="filter-group">
+                                <div class="card-header">
+                                    <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true"
+                                        class="">
+                                        <h6 class="title">Semillas <i class="fa fa-chevron-down float-right"></i>
+                                        </h6>
+                                    </a>
+                                </div>
+                                <div class="filter-content collapse show" id="collapse_2" style="">
+                                    <div class="card-body" id="tipos">
+                                        @foreach ($tipos as $tipo)
+                                            <label class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input filtrarCheckbox"
+                                                    name="tipos[]" value="{{ $tipo->tipo_semilla_id }}">
+                                                <div class="custom-control-label filtrarCheckbox">
+                                                    {{ $tipo->tipo_semilla_nombre }}
+                                                    <span
+                                                        class="badge badge-pill badge-light float-right">{{ $tipo->publicaciones->count() }}</span>
+                                                </div>
+                                            </label>
+                                        @endforeach
+                                    </div> <!-- card-body.// -->
+                                </div>
+                            </div>
+                        </div> <!-- card.// -->
+                    </div> <!-- col.// -->
+                    <div class="col-md-9">
+                        <div id="publicaciones">
+                            @include('publicaciones')
+                        </div>
+                    </div>
                 </div>
             </div> <!-- container .//  -->
         </section>
