@@ -61,16 +61,24 @@
                         <a href="{{ route('publicaciones.show', ['publicacion_id' => $publicacion->publicacion_id]) }}"
                             class="title-product">{{ $publicacion->titulo ?? '' }}</a>
                         <div class="row">
+                            @php
+                                if (count($publicacion->resenas) > 0) {
+                                    $promedio = $publicacion->resenas->sum('puntaje') / $publicacion->resenas->count('puntaje');
+                                } else {
+                                    $promedio = 0;
+                                }
+                            @endphp
                             <ul class="list-unstyled ml-2">
                                 <li class="stars-active">
-                                    <i class="fa fa-star text-orange"></i>
-                                    <i class="fa fa-star text-orange"></i>
-                                    <i class="fa fa-star text-orange"></i>
-                                    <i class="fa fa-star text-orange"></i>
-                                    <i class="fa fa-star text-orange"></i>
+                                    @for ($i = 0; $i < $promedio; $i++)
+                                        <i class="fa fa-star text-orange"></i>
+                                    @endfor
+                                    @for ($i = $promedio; $i < 5; $i++)
+                                        <i class="far fa-star"></i>
+                                    @endfor
                                 </li>
                             </ul>
-                            <small class="ml-1 mt-1 text-muted">132 reviews</small>
+                            <small class="ml-1 mt-1 text-muted">{{$publicacion->resenas->count('puntaje') ?? 0}} reseñas</small>
                         </div>
                         <p>{{ mb_strimwidth($publicacion->descripcion ?? '', 0, 230, '...') }}</p>
                     </div> <!-- col.// -->
