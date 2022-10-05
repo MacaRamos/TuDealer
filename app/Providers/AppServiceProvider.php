@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Admin\Menu;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -25,11 +26,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer("theme.adminlte.aside", function ($view)
-        {
-            $menus = Menu::getMenu(true);
-            $view->with("menusComposer", $menus);
-        });
+        // View::composer("theme.adminlte.aside", function ($view)
+        // {
+        //     $menus = Menu::getMenu(true);
+        //     $view->with("menusComposer", $menus);
+        // });
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
         View::share('theme', 'adminlte');
     }
 }
