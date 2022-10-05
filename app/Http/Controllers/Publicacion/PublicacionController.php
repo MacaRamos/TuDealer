@@ -72,7 +72,7 @@ class PublicacionController extends Controller
             if (count((array) $request->fotos) > 0) {
                 foreach ((array) $request->fotos as $key => $f) {
                     if (isset($f)) {
-                        $size = Storage::size(storage_path('public/' . $f));
+                        $size = Storage::size(storage_path('/' . $f));
                         $foto = new PublicacionFoto();
                         $foto->publicacion_id = $publicacion->publicacion_id;
                         $foto->foto = $f;
@@ -152,7 +152,7 @@ class PublicacionController extends Controller
             if (count((array) $request->fotos) > 0) {
                 foreach ((array) $request->fotos as $key => $f) {
                     if (isset($f)) {
-                        $size = Storage::size(storage_path('public/' . $f));
+                        $size = Storage::size(storage_path('/' . $f));
                         $foto = new PublicacionFoto();
                         $foto->publicacion_id = $publicacion->publicacion_id;
                         $foto->foto = $f;
@@ -211,7 +211,7 @@ class PublicacionController extends Controller
 
     public function eliminarFoto(Request $request, $publicacion = null)
     {
-        unlink(storage_path('public/' . $request->name));
+        unlink(storage_path('/' . $request->name));
         if ($publicacion) {
             $publicacion = PublicacionFoto::where('publicacion_id', $publicacion)
                 ->where('foto', '=', $request->name)
