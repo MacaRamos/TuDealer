@@ -152,7 +152,7 @@ class PublicacionController extends Controller
             if (count((array) $request->fotos) > 0) {
                 foreach ((array) $request->fotos as $key => $f) {
                     if (isset($f)) {
-                        $size = Storage::size('public/' . $f);
+                        $size = Storage::size('public/storage' . $f);
                         $foto = new PublicacionFoto();
                         $foto->publicacion_id = $publicacion->publicacion_id;
                         $foto->foto = $f;
