@@ -1,3 +1,3 @@
 <footer class="main-footer text-center bg-transparent">
-  <span>TuDealer © 2021 - Todos los derechos reservados</span>
+  <span>{{config('app.name', 'Laravel')}} © 2022 - Todos los derechos reservados - By Maca Ramos</span>
 </footer>
